@@ -1,7 +1,7 @@
 class Api::V1::ForecastController < ApplicationController
   def show
     weather = WeatherService.report(location_params)
-    render json: DestinationWeatherSerializer.new(weather).serializable_hash
+    render json: CurrentWeatherSerializer.new(weather).serializable_hash
   end
 
   private

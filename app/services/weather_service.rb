@@ -15,7 +15,7 @@ class WeatherService
       r.params[:lat] = location_coordinates[:lat].to_s
       r.params[:lon] = location_coordinates[:lng].to_s
       r.params[:units] = 'imperial'
-      r.params[:exclude] = 'hourly, minutely, daily'
+      r.params[:exclude] = 'minutely'
     end
 
     current_weather = self.conn.get('weather') do |r|
@@ -26,7 +26,8 @@ class WeatherService
 
     onecall_response = JSON.parse(onecall_weather.body, symbolize_names: true)
     current_response = JSON.parse(current_weather.body, symbolize_names: true)
-    DestinationWeather.new(onecall_response, current_response)
+    CurrentWeather.new(current_response)
+    # ForecastWeather.new(onecall_response)
   end
 
   def self.conn

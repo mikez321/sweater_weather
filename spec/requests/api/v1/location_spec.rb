@@ -14,6 +14,6 @@ describe 'location information' do
     expect(json[:data]).to have_key(:id)
     expect(json[:data]).to have_key(:type)
     expect(json[:data]).to have_key(:attributes)
-    expect(json[:data][:type]).to eq('destination_weather')
+    expect(json[:data][:type]).to eq('current_weather')
   end
 end

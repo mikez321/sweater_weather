@@ -1,4 +1,4 @@
-class DestinationWeatherSerializer
+class CurrentWeatherSerializer
   include FastJsonapi::ObjectSerializer
   attributes :location,
             :current,
@@ -6,10 +6,10 @@ class DestinationWeatherSerializer
             :max,
             :feels_like,
             :description,
-            :humidity,
-            :uvi,
-            :visibility,
-            :sunrise,
-            :sunset,
-            :time
+            :humidity
+            # :uvi,
+            # :visibility,
+            # :sunrise,
+            # :sunset,
+            # :time
 end
