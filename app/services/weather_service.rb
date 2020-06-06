@@ -9,7 +9,8 @@ class WeatherService
       f.params[:lon] = location_coordinates[:lng].to_s
     end
 
-    JSON.parse(response.body, symbolize_names: true)
+    weather_info = JSON.parse(response.body, symbolize_names: true)
+    DestinationWeather.new(weather_info)
   end
 
 end

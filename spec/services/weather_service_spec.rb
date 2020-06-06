@@ -7,6 +7,6 @@ describe 'weather api' do
 
     weather = WeatherService.report(location)
 
-    expect(weather).to be_a(Hash)
+    expect(weather).to be_a(DestinationWeather)
   end
 end
