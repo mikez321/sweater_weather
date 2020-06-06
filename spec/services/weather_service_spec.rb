@@ -5,7 +5,7 @@ describe 'weather api' do
 
     location = 'Denver,CO'
 
-    weather = WeatherService.report(location)
+    weather = ForecastSearch.results(location)
 
     expect(weather).to be_a(Hash)
   end
