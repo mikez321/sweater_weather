@@ -1,6 +1,6 @@
 class Api::V1::BackgroundsController < ApplicationController
   def show
-    background = BackgroundSearch.results(location_params)
+    background = BackgroundSearch.results(location_params['location'])
     render json: BackgroundSerializer.new(background).serializable_hash
   end
 
