@@ -2,9 +2,10 @@ class WeatherService
 
   def self.current(city_name)
     city_coordinates = city_coordinates(city_name)
-    response = conn.get('weather') do |conn|
+    response = conn.get('onecall') do |conn|
       conn.params[:lat] = city_coordinates[:lat].to_s
       conn.params[:lon] = city_coordinates[:lng].to_s
+      conn.params[:exclude] = 'minutely, hourly, daily'
       conn.params[:units] = 'imperial'
     end
     current_info = JSON.parse(response.body, symbolize_names: true)
