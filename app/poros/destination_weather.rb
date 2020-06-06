@@ -37,9 +37,11 @@ class DestinationWeather
   end
 
   def visibility
-    'not avaiable' if @onecall[:current][:visibility].nil?
-
-    @onecall[:current][:visibility]
+    if @onecall[:current][:visibility].nil?
+      'Unavailable'
+    else
+      @onecall[:current][:visibility] / 1609.34
+    end
   end
 
   def sunrise
