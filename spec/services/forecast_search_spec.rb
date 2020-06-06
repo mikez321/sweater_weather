@@ -6,7 +6,7 @@ describe 'forecast searching' do
     location = 'Denver,CO'
 
     weather = ForecastSearch.results(location)
-
+    
     expect(weather).to be_a(Forecast)
   end
 end
