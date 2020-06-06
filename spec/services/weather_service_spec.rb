@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'weather api' do
   it 'can get the weather of a location' do
 
-    location = 'Denver,CO'
+    location = 'denver,co'
 
     weather = WeatherService.report(location)
 
