@@ -7,7 +7,7 @@ class CurrentWeather
               :feels_like,
               :high,
               :low,
-              :humidity
+              :humidity,
               :visibility
 
   def initialize(current_info)
@@ -18,6 +18,6 @@ class CurrentWeather
     @current_temp = current_info[:current][:temp].to_i
     @feels_like = current_info[:current][:feels_like].to_i
     @humidity = current_info[:current][:humidity].to_i
-    @visibility = current_info[:visibility].nil? ? ('unvailable') : (current_info[:visibility] / 1609.34)
+    @visibility = current_info[:visibility].nil? ? 'unvailable' : current_info[:visibility] / 1609.34
   end
 end
