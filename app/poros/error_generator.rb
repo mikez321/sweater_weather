@@ -1,9 +1,9 @@
 class ErrorGenerator
   def initialize(user_errors)
-    @error = user_errors.full_messages.to_sentence
-    @type = user_errors.details.keys.first.to_s
-    @title = user_errors.details.keys.to_s
     @status = '400'
+    @source = user_errors.details.keys.join(", ")
+    @title = user_errors.details.flat_map { |error, deets| deets }
+    @error = user_errors.full_messages.to_sentence
   end
 
   def error_hash
@@ -11,7 +11,7 @@ class ErrorGenerator
         "errors": [
           {
             "status": @status,
-            "source": @type,
+            "source": @source,
             "title":  @title,
             "detail": @error
           }
