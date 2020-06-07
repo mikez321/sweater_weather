@@ -11,17 +11,16 @@ class GoogleService
     ref_response = conn.get('place/findplacefromtext/json') do |conn|
       conn.params[:input] = city_name
       conn.params[:inputtype] = 'textquery'
-      conn.params[:fields] = 'photos,formatted_address,name,rating,opening_hours,geometry'
+      conn.params[:fields] = 'photos,name'
     end
     json = JSON.parse(ref_response.body, symbolize_names: true)
     photo_reference = json[:candidates].first[:photos].first[:photo_reference]
 
     photo_response = conn.get('place/photo') do |conn|
       conn.params[:maxwidth] = '4000'
-      conn.params[:photoreference] = 'CmRaAAAAjSMDnUAwEOVf9Ds3jM5OrYCYl_gRGICDVhgVD-zhCTMDaqH-M6v3jF0DgU4bCbYLjsAyCL8fDD0oI1-PI0QBH_kr3co4U09n4tJ4Qew7ZlSCHRCBvR_WweJ_WzxXlwdtEhCKj7t10reeQgQfQLmOwqFcGhSWpo1ztPpiqnE8Wy0KHFIzCbp2TQ'
+      conn.params[:photoreference] = photo_reference
     end
-    require "pry"; binding.pry
-    json = JSON.parse(photo_response.body, symbolize_names: true)
+    photo_url = photo_response.headers['location']
   end
 
   private
