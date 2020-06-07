@@ -12,6 +12,6 @@ describe 'google background image api' do
     expect(json).to have_key(:data)
     expect(json[:data]).to have_key(:id)
     expect(json[:data]).to have_key(:type)
-    expect(json[:data][:type]).to eq('bgimage')
+    expect(json[:data][:type]).to eq('background')
   end
 end
