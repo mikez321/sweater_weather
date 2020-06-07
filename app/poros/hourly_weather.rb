@@ -7,5 +7,4 @@ class HourlyWeather
     @icon = hourly_info[:weather].first[:icon]
     @temp = hourly_info[:temp].to_i
   end
-
 end
