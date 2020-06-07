@@ -7,8 +7,7 @@ class WeatherService
       conn.params[:exclude] = 'minutely, hourly, daily'
       conn.params[:units] = 'imperial'
     end
-    current_info = JSON.parse(response.body, symbolize_names: true)
-    CurrentWeather.new(current_info)
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.hourly(city_name)
@@ -19,8 +18,7 @@ class WeatherService
       conn.params[:exclude] = 'current, minutely, daily'
       conn.params[:units] = 'imperial'
     end
-    hourly_response = JSON.parse(response.body, symbolize_names: true)
-    hourly_response[:hourly].map { |hourly_info| HourlyWeather.new(hourly_info) }
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.daily(city_name)
@@ -31,8 +29,7 @@ class WeatherService
       conn.params[:exclude] = 'current, minutely, hourly'
       conn.params[:units] = 'imperial'
     end
-    daily_response = JSON.parse(response.body, symbolize_names: true)
-    daily_response[:daily].map { |daily_info| DailyWeather.new(daily_info) }
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.city_coordinates(city_name)
