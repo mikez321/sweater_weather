@@ -12,7 +12,7 @@ describe 'new user registration' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: {user: params}
+    post '/api/v1/users', params: params
 
     expect(response).to be_successful
 
@@ -24,5 +24,7 @@ describe 'new user registration' do
     expect(json[:data]).to have_key(:id)
     expect(json[:data]).to have_key(:attributes)
     expect(json[:data][:attributes][:email]).to eq("whatever@example.com")
+    expect(json[:data][:attributes]).to have_key(:api_key)
+    expect(json[:data][:attributes][:api_key]).to_not be_nil
   end
 end
