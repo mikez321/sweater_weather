@@ -20,7 +20,7 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'simplecov'
-  gem 'rubocop'
+  gem 'rubocop-rails'
 end
 
 group :development do

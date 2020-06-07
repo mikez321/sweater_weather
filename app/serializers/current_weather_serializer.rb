@@ -1,15 +1,13 @@
 class CurrentWeatherSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :location,
-            :current,
-            :min,
-            :max,
+  attributes :date,
+            :time,
+            :conditions,
+            :icon,
+            :current_temp,
             :feels_like,
-            :description,
-            :humidity
-            # :uvi,
-            # :visibility,
-            # :sunrise,
-            # :sunset,
-            # :time
+            :high,
+            :low,
+            :humidity,
+            :visibility
 end
