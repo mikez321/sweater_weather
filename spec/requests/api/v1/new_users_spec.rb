@@ -65,7 +65,6 @@ describe 'new user registration' do
     expect(response).to be_successful
     json = JSON.parse(response.body, symbolize_names: true)
 
-
     expect(json).to have_key(:errors)
     expect(json[:errors].first).to have_key(:status)
     expect(json[:errors].first).to have_key(:source)

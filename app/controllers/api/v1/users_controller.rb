@@ -5,19 +5,8 @@ class Api::V1::UsersController < ApplicationController
       user.create_api_key
       render json: UserSerializer.new(user).serializable_hash
     else
-      error = user.errors.full_messages.to_sentence
-      type = user.errors.details.to_s
-      title = user.errors.details.keys.to_s
-      render json: {
-          "errors": [
-            {
-              "status": "400",
-              "source": type,
-              "title":  title,
-              "detail": error
-            }
-          ]
-        }
+      error_hash = ErrorGenerator.new(user.errors).error_hash
+      render json: error_hash
     end
   end
 
