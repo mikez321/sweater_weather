@@ -38,4 +38,47 @@ describe 'user logs in' do
     expect(json[:data][:attributes][:email]).to eq(user.email)
     expect(json[:data][:attributes][:api_key]).to eq(user.api_key)
   end
+
+  it 'cant log in if it is not a registered user' do
+
+    login_params = {
+      email: 'unregistered@example.com',
+      password: 'password'
+    }
+
+    post '/api/v1/sessions', params: login_params
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+    expect(json[:errors].first[:status]).to eq(400)
+    expect(json[:errors].first[:detail]).to eq('no user found with provided credentials')
+  end
+
+  it 'cant log in with an incorrect password' do
+    login_params = {
+      email: 'whatever@example.com',
+      password: 'wrongpassword'
+    }
+
+    post '/api/v1/sessions', params: login_params
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+    expect(json[:errors].first[:status]).to eq(400)
+    expect(json[:errors].first[:detail]).to eq('user authentication failed')
+  end
 end
