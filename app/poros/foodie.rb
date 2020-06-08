@@ -1,10 +1,10 @@
 class Foodie
-  attr_reader :id, :a, :b, :c
+  attr_reader :id, :destination_forecast, :restaurant, :time
 
-  def initialize(a, b, c)
+  def initialize(destination_forecast, restaurant, time)
     @id = 1
-    @a = a
-    @b = b
-    @c = c
+    @destination_forecast = destination_forecast.current.current_temp
+    @restaurant = restaurant
+    @time = time
   end
 end
