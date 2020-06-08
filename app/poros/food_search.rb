@@ -1,14 +1,23 @@
 class FoodSearch
   def self.result(food_params)
-    end_location = food_params['end']
-    travel_time = GoogleService.get_travel_time(food_params['start'], food_params['end'])
+    Foodie.new(restaurant(food_params), travel_time(food_params), end_location(food_params), short_forecast(food_params))
+  end
+
+  def self.travel_time(food_params)
+    GoogleService.get_travel_time(food_params['start'], food_params['end'])
+  end
+
+  def self.short_forecast(food_params)
     destination_weather = WeatherService.current(food_params['end'])
-    short_forecast = ShortForecast.new(destination_weather)
-    conn = FoodService.new(food_params).food_search
-    json = JSON.parse(conn.body, symbolize_names: true)
+    ShortForecast.new(destination_weather)
+  end
 
-    restaurant = Restaurant.new(json[:restaurants].first)
+  def self.end_location(food_params)
+    food_params['end']
+  end
 
-    Foodie.new(restaurant, travel_time, end_location, short_forecast)
+  def self.restaurant(food_params)
+    restaurant_info = FoodService.new(food_params).restaurant_search
+    Restaurant.new(restaurant_info)
   end
 end

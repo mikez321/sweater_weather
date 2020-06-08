@@ -5,18 +5,14 @@ class FoodService
     @food_params = food_params
   end
 
-  def food_search
-    # Faraday.get('https://developers.zomato.com/api/v2.1/search') do |f|
-    #   f.headers['user-key'] = ENV['ZOMATO_KEY']
-    #   f.params[:lat] = @dest_coords[:lat]
-    #   f.params[:lon] = @dest_coords[:lng]
-    #   f.params[:q] = @food_params['search']
-    # end
-    conn.get('/search') do |conn|
+  def restaurant_search
+    response = conn.get('search') do |conn|
       conn.params[:lat] = @dest_coords[:lat]
       conn.params[:lon] = @dest_coords[:lng]
       conn.params[:q] = @food_params['search']
     end
+    json = JSON.parse(response.body, symbolize_names: true)
+    json[:restaurants].first
   end
 
   private
