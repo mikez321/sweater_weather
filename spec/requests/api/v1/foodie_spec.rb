@@ -18,14 +18,14 @@ describe 'foodie endpoint' do
     expect(json[:data]).to have_key(:id)
     expect(json[:data]).to have_key(:type)
     expect(json[:data]).to have_key(:attributes)
+    expect(json[:data][:attributes]).to have_key(:restaurant)
     expect(json[:data][:attributes][:restaurant]).to have_key(:name)
     expect(json[:data][:attributes][:restaurant]).to have_key(:location)
     expect(json[:data][:attributes]).to have_key(:end_location)
     expect(json[:data][:attributes]).to have_key(:travel_time)
-    # expect(json[:data][:attributes]).to have_key(:forecast)
-    # expect(json[:data][:attributes]).to have_key(:restaurant)
-    # expect(json[:data][:attributes][:forecast]).to have_key(:summary)
-    # expect(json[:data][:attributes][:forecast]).to have_key(:temperature)
+    expect(json[:data][:attributes]).to have_key(:forecast)
+    expect(json[:data][:attributes][:forecast]).to have_key(:summary)
+    expect(json[:data][:attributes][:forecast]).to have_key(:temperature)
 
 #     {
 #   "data": {

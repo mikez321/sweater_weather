@@ -4,8 +4,8 @@ class FoodSearch
     start_coords = GoogleService.get_coordinates(food_params['start'])
     dest_coords = GoogleService.get_coordinates(food_params['end'])
     travel_time = GoogleService.get_travel_time(food_params['start'], food_params['end'])
-    # destination_weather = WeatherService.current(food_params['end'])
-    destination_forecast = ForecastSearch.results(food_params['end'])
+    destination_weather = WeatherService.current(food_params['end'])
+    short_forecast = ShortForecast.new(destination_weather)
     conn = Faraday.get('https://developers.zomato.com/api/v2.1/search') do |f|
       f.headers['user-key'] = ENV['ZOMATO_KEY']
       f.params[:lat] = dest_coords[:lat]
@@ -16,6 +16,6 @@ class FoodSearch
 
     restaurant = Restaurant.new(json[:restaurants].first)
 
-    Foodie.new(restaurant, travel_time, end_location)
+    Foodie.new(restaurant, travel_time, end_location, short_forecast)
   end
 end
