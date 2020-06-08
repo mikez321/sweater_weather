@@ -1,6 +1,5 @@
 class FoodService
   def initialize(food_params)
-    @start_coords = GoogleService.get_coordinates(food_params['start'])
     @dest_coords = GoogleService.get_coordinates(food_params['end'])
     @food_params = food_params
   end

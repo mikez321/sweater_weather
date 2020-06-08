@@ -4,16 +4,18 @@ class FoodSearch
     @@destination = food_params['end']
     @@origin = food_params['start']
 
-    Foodie.new(restaurant(food_params), travel_time(food_params), @@destination, short_forecast(food_params))
+    Foodie.new(restaurant(food_params),
+               travel_time,
+               @@destination,
+               short_forecast)
   end
 
-  def self.travel_time(food_params)
+  def self.travel_time
     GoogleService.get_travel_time(@@origin, @@destination)
   end
 
-  def self.short_forecast(food_params)
-    destination_weather = WeatherService.current(@@destination)
-    ShortForecast.new(destination_weather)
+  def self.short_forecast
+    ShortForecast.new(WeatherService.current(@@destination))
   end
 
   def self.restaurant(food_params)
