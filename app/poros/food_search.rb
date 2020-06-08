@@ -1,5 +1,6 @@
 class FoodSearch
   def self.result(food_params)
+    end_location = food_params[:end_location]
     start_coords = GoogleService.get_coordinates(food_params['start'])
     dest_coords = GoogleService.get_coordinates(food_params['end'])
     travel_time = GoogleService.get_travel_time(food_params['start'], food_params['end'])
@@ -15,6 +16,6 @@ class FoodSearch
 
     restaurant = Restaurant.new(json[:restaurants].first)
 
-    Foodie.new(destination_forecast, restaurant, travel_time)
+    Foodie.new(restaurant, travel_time, end_location)
   end
 end
