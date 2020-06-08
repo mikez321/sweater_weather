@@ -7,7 +7,5 @@ describe 'foodie endpoint' do
 
     expect(response).to be_successful
 
-    #
-
   end
 end
