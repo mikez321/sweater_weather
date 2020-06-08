@@ -36,25 +36,5 @@ describe 'foodie endpoint' do
 
     expect(json[:data][:attributes][:restaurant][:name]).to_not eq('null')
     expect(json[:data][:attributes][:restaurant][:address]).to_not eq('null')
-
-#     {
-#   "data": {
-#     "id": "null",
-#     "type": "foodie",
-#     "attributes": {
-#       "end_location": "pueblo,co",
-#       "travel_time": "1 hours 48 min",
-#       "forecast": {
-#         "summary": "Cloudy with a chance of meatballs",
-#         "temperature": "83"
-#       },
-#       "restaurant": {
-#         "name": "Angelo's Pizza Parlor",
-#         "address": "105 E Riverwalk, Pueblo 81003"
-#       }
-#     }
-#   }
-# }
-
   end
 end
