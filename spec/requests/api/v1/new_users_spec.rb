@@ -16,7 +16,10 @@ describe 'new user registration' do
 
     expect(response).to be_successful
 
+    expect(response.status).to eq(201)
+
     expect(User.count).to eq(2)
+
 
     json = JSON.parse(response.body, symbolize_names: true)
     expect(json).to have_key(:data)
@@ -41,7 +44,10 @@ describe 'new user registration' do
 
     post '/api/v1/users', params: params
 
-    expect(response).to be_successful
+    expect(response).to_not be_successful
+
+    expect(response.status).to eq(400)
+
     json = JSON.parse(response.body, symbolize_names: true)
 
     expect(json).to have_key(:errors)
@@ -49,7 +55,7 @@ describe 'new user registration' do
     expect(json[:errors].first).to have_key(:source)
     expect(json[:errors].first).to have_key(:title)
     expect(json[:errors].first).to have_key(:detail)
-    expect(json[:errors].first[:status]).to eq('400')
+    expect(json[:errors].first[:status]).to eq(400)
     expect(json[:errors].first[:detail]).to eq('Email has already been taken')
   end
 
@@ -62,7 +68,10 @@ describe 'new user registration' do
 
     post '/api/v1/users', params: params
 
-    expect(response).to be_successful
+    expect(response).to_not be_successful
+
+    expect(response.status).to eq(400)
+
     json = JSON.parse(response.body, symbolize_names: true)
 
     expect(json).to have_key(:errors)
@@ -70,7 +79,7 @@ describe 'new user registration' do
     expect(json[:errors].first).to have_key(:source)
     expect(json[:errors].first).to have_key(:title)
     expect(json[:errors].first).to have_key(:detail)
-    expect(json[:errors].first[:status]).to eq('400')
+    expect(json[:errors].first[:status]).to eq(400)
     expect(json[:errors].first[:detail]).to eq("Password confirmation doesn't match Password")
   end
 end
