@@ -30,7 +30,15 @@ class GoogleService
       conn.params[:origin] = origin
       conn.params[:destination] = destination
     end
-    json = JSON.parse(directions_response.body, symbolize_names: true)
+    JSON.parse(directions_response.body, symbolize_names: true)
+  end
+
+  def self.travel_time_description(origin, destination)
+    get_directions(origin, destination)[:routes].first[:legs].first[:duration][:text]
+  end
+
+  def self.travel_time_seconds(origin, destination)
+    get_directions(origin, destination)[:routes].first[:legs].first[:duration][:value]
   end
 
   def self.conn
