@@ -8,7 +8,7 @@ describe 'road trip endpoint' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params
+    post '/api/v1/users', params: params, as: :json
   end
 
   it 'returns starting and endpoints and a variety of other info' do
@@ -20,7 +20,7 @@ describe 'road trip endpoint' do
       api_key: user.api_key
     }
 
-    post '/api/v1/road_trip', params: user_params
+    post '/api/v1/road_trip', params: user_params, as: :json
 
     expect(response).to be_successful
 
