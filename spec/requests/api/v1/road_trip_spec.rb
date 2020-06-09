@@ -39,6 +39,82 @@ describe 'road trip endpoint' do
 
     expect(json[:data][:attributes][:origin]).to eq(user_params[:origin])
     expect(json[:data][:attributes][:destination]).to eq(user_params[:destination])
+  end
 
+  it 'will not return anything without an API key' do
+    user = User.find_by(email: 'whatever@example.com')
+
+    user_params = {
+      origin: 'Denver, CO',
+      destination: 'Pueblo, CO',
+    }
+
+    post '/api/v1/road_trip', params: user_params, as: :json
+
+    expect(response).to_not be_successful
+
+    expect(response.status).to eq(401)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+
+    expect(json[:errors].first[:source]).to eq('unauthorized')
+    expect(json[:errors].first[:detail]).to eq('user authentication failed')
+  end
+
+  it 'will not return anything with a blank API key' do
+    user = User.find_by(email: 'whatever@example.com')
+
+    user_params = {
+      origin: 'Denver, CO',
+      destination: 'Pueblo, CO',
+      api_key: ''
+    }
+
+    post '/api/v1/road_trip', params: user_params, as: :json
+
+    expect(response).to_not be_successful
+
+    expect(response.status).to eq(401)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+
+    expect(json[:errors].first[:source]).to eq('unauthorized')
+    expect(json[:errors].first[:detail]).to eq('user authentication failed')
+  end
+
+  it 'will not return anything with an incorrect API key' do
+    user = User.find_by(email: 'whatever@example.com')
+
+    user_params = {
+      origin: 'Denver, CO',
+      destination: 'Pueblo, CO',
+      api_key: 'notanapikey'
+    }
+
+    post '/api/v1/road_trip', params: user_params, as: :json
+
+    expect(response).to_not be_successful
+
+    expect(response.status).to eq(401)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+
+    expect(json[:errors].first[:source]).to eq('unauthorized')
+    expect(json[:errors].first[:detail]).to eq('user authentication failed')
   end
 end
