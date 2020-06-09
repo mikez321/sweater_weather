@@ -9,7 +9,10 @@ describe 'user logs in' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params, as: :json
+    post '/api/v1/users',
+    params: params.to_json,
+    headers: { 'Content-Type': 'application/json',
+               'Accept': 'application/json'}
   end
 
   it 'can process a successful login' do
@@ -19,7 +22,10 @@ describe 'user logs in' do
       password: 'password'
     }
 
-    post '/api/v1/sessions', params: login_params, as: :json
+    post '/api/v1/sessions',
+    params: login_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to be_successful
 
@@ -46,7 +52,10 @@ describe 'user logs in' do
       password: 'password'
     }
 
-    post '/api/v1/sessions', params: login_params, as: :json
+    post '/api/v1/sessions',
+    params: login_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
@@ -67,7 +76,10 @@ describe 'user logs in' do
       password: 'wrongpassword'
     }
 
-    post '/api/v1/sessions', params: login_params, as: :json
+    post '/api/v1/sessions',
+    params: login_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
