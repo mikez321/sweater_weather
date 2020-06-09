@@ -3,10 +3,10 @@ class Api::V1::UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       user.create_api_key
-      render json: UserSerializer.new(user).serializable_hash
+      render json: UserSerializer.new(user).serializable_hash, status: :created
     else
-      error_hash = ErrorGenerator.new(user.errors).error_hash
-      render json: error_hash
+      error_hash = ErrorGenerator.new(user.errors, 400).error_hash
+      render json: error_hash, status: :bad_request
     end
   end
 
