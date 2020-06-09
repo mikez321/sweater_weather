@@ -24,5 +24,21 @@ describe 'road trip endpoint' do
 
     expect(response).to be_successful
 
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:data)
+    expect(json[:data]).to have_key(:id)
+    expect(json[:data]).to have_key(:type)
+    expect(json[:data]).to have_key(:attributes)
+    expect(json[:data][:attributes]).to have_key(:origin)
+    expect(json[:data][:attributes]).to have_key(:destination)
+    expect(json[:data][:attributes]).to have_key(:travel_time)
+    expect(json[:data][:attributes]).to have_key(:arrival_weather)
+    expect(json[:data][:attributes][:arrival_weather]).to have_key(:temp)
+    expect(json[:data][:attributes][:arrival_weather]).to have_key(:description)
+
+    expect(json[:data][:attributes][:origin]).to eq(user_params[:origin])
+    expect(json[:data][:attributes][:destination]).to eq(user_params[:destination])
+
   end
 end
