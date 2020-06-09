@@ -8,7 +8,10 @@ describe 'road trip endpoint' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params, as: :json
+      post '/api/v1/users',
+      params: params.to_json,
+      headers: { 'CONTENT_TYPE' => 'application/json',
+                 'Accept': 'application/json' }
   end
 
   it 'returns starting and endpoints and a variety of other info' do
@@ -20,7 +23,10 @@ describe 'road trip endpoint' do
       api_key: user.api_key
     }
 
-    post '/api/v1/road_trip', params: user_params, as: :json
+    post '/api/v1/road_trip',
+    params: user_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to be_successful
 
@@ -49,7 +55,10 @@ describe 'road trip endpoint' do
       destination: 'Pueblo, CO',
     }
 
-    post '/api/v1/road_trip', params: user_params, as: :json
+    post '/api/v1/road_trip',
+    params: user_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
 
@@ -75,7 +84,10 @@ describe 'road trip endpoint' do
       api_key: ''
     }
 
-    post '/api/v1/road_trip', params: user_params, as: :json
+    post '/api/v1/road_trip',
+    params: user_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
 
@@ -101,7 +113,10 @@ describe 'road trip endpoint' do
       api_key: 'notanapikey'
     }
 
-    post '/api/v1/road_trip', params: user_params, as: :json
+    post '/api/v1/road_trip',
+    params: user_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
 

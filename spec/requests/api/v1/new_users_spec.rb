@@ -12,7 +12,10 @@ describe 'new user registration' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params, as: :json
+      post '/api/v1/users',
+      params: params.to_json,
+      headers: { 'CONTENT_TYPE' => 'application/json',
+                 'Accept': 'application/json' }
 
     expect(response).to be_successful
 
@@ -42,7 +45,10 @@ describe 'new user registration' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params, as: :json
+    post '/api/v1/users',
+    params: params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
 
@@ -66,7 +72,10 @@ describe 'new user registration' do
         "password_confirmation": "drowssap"
       }
 
-    post '/api/v1/users', params: params, as: :json
+    post '/api/v1/users',
+    params: params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
 
     expect(response).to_not be_successful
 
