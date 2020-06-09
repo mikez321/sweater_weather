@@ -18,5 +18,8 @@ describe 'location information' do
     expect(json[:data][:attributes]).to have_key(:current)
     expect(json[:data][:attributes]).to have_key(:daily)
     expect(json[:data][:attributes]).to have_key(:hourly)
+
+    expect(json[:data][:type]).to eq('forecast')
+    expect(json[:data][:attributes][:city_name]).to eq('denver,co')
   end
 end
