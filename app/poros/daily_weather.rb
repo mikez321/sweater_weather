@@ -1,5 +1,7 @@
 class DailyWeather
   attr_reader :day,
+              :time,
+              :date,
               :icon,
               :description,
               :rain,
