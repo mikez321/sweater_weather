@@ -15,9 +15,9 @@ class CurrentWeather
     @time = current_info[:current][:dt]
     @conditions = current_info[:current][:weather].first[:description]
     @icon = current_info[:current][:weather].first[:icon]
-    @current_temp = current_info[:current][:temp].to_i
-    @feels_like = current_info[:current][:feels_like].to_i
-    @humidity = current_info[:current][:humidity].to_i
+    @current_temp = current_info[:current][:temp]
+    @feels_like = current_info[:current][:feels_like]
+    @humidity = current_info[:current][:humidity]
     @visibility = current_info[:visibility].nil? ? 'unvailable' : current_info[:visibility] / 1609.34
   end
 end
