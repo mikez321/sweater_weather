@@ -11,7 +11,7 @@ describe 'forecast searching' do
     expect(current).to be_a(CurrentWeather)
   end
 
-  it 'returns an array of houlry weather object' do
+  it 'returns an array of houlry weather objects' do
     hourly = ForecastSearch.hourly_weather(@location)
 
     expect(hourly).to be_an(Array)
