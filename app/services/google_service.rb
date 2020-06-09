@@ -25,6 +25,22 @@ class GoogleService
     json[:candidates].first[:photos].first[:photo_reference]
   end
 
+  def self.get_directions(origin, destination)
+    directions_response = conn.get('directions/json') do |conn|
+      conn.params[:origin] = origin
+      conn.params[:destination] = destination
+    end
+    JSON.parse(directions_response.body, symbolize_names: true)
+  end
+
+  def self.travel_time_description(origin, destination)
+    get_directions(origin, destination)[:routes].first[:legs].first[:duration][:text]
+  end
+
+  def self.travel_time_seconds(origin, destination)
+    get_directions(origin, destination)[:routes].first[:legs].first[:duration][:value]
+  end
+
   def self.conn
     Faraday.new('https://maps.googleapis.com/maps/api') do |f|
       f.params[:key] = ENV['GOOGLE_KEY']

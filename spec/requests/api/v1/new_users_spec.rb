@@ -12,7 +12,7 @@ describe 'new user registration' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params
+    post '/api/v1/users', params: params, as: :json
 
     expect(response).to be_successful
 
@@ -42,7 +42,7 @@ describe 'new user registration' do
         "password_confirmation": "password"
       }
 
-    post '/api/v1/users', params: params
+    post '/api/v1/users', params: params, as: :json
 
     expect(response).to_not be_successful
 
@@ -66,7 +66,7 @@ describe 'new user registration' do
         "password_confirmation": "drowssap"
       }
 
-    post '/api/v1/users', params: params
+    post '/api/v1/users', params: params, as: :json
 
     expect(response).to_not be_successful
 
