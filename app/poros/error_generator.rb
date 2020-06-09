@@ -1,6 +1,5 @@
 class ErrorGenerator
   def initialize(user_errors, status)
-    return user_not_found if user_errors == 'no_user'
     @status = status
     @source = user_errors.details.keys.join(', ')
     @title = user_errors.details.flat_map { |_error, deets| deets }
@@ -20,7 +19,7 @@ class ErrorGenerator
     }
   end
 
-  def user_not_found
+  def self.user_not_found
     {
       "errors": [
         {
@@ -32,7 +31,7 @@ class ErrorGenerator
     }
   end
 
-  def invalid_user
+  def self.invalid_user
     {
       "errors": [
         {
