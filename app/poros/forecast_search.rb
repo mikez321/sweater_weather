@@ -20,4 +20,10 @@ class ForecastSearch
     daily_info = WeatherService.daily(city_name)
     daily_info[:daily].map { |info| DailyWeather.new(info) }
   end
+
+  def self.arrival_weather(city_name, arrival_time)
+    hourly_weather = WeatherService.hourly(city_name)[:hourly]
+    weather_at_arrival = hourly_weather.find { |hour| hour[:dt] == arrival_time }
+    ArrivalWeather.new(weather_at_arrival)
+  end
 end
