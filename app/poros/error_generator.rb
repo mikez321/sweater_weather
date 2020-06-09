@@ -42,4 +42,16 @@ class ErrorGenerator
       ]
     }
   end
+
+  def self.invalid_key
+    {
+      "errors": [
+        {
+          "status": 401,
+          "source": 'unauthorized',
+          "detail": 'user authentication failed'
+        }
+      ]
+    }
+  end
 end
