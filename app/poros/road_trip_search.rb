@@ -14,7 +14,7 @@ class RoadTripSearch
 
   def self.arrival_weather
     travel_time = GoogleService.travel_time_seconds(@origin, @destination)
-    arrival_time = (Time.now + travel_time).beginning_of_hour.to_i
+    arrival_time = TimeCalculator.round_to_nearest_hour(travel_time)
     ForecastSearch.arrival_weather(@destination, arrival_time)
   end
 end
