@@ -2,7 +2,7 @@ class Api::V1::RoadTripController < ApplicationController
   def create
     origin = road_trip_params[:origin]
     destination = road_trip_params[:destination]
-    road_trip = RoadTripResults.results(origin, destination)
+    road_trip = RoadTripSearch.results(origin, destination)
     render json: RoadTripSerializer.new(road_trip)
   end
 
