@@ -20,6 +20,6 @@ class RoadTripSearch
   end
 
   def self.arrival_time
-    Time.now + GoogleService.travel_time_seconds(@origin, @destination)
+    Time.now.getlocal + GoogleService.travel_time_seconds(@origin, @destination)
   end
 end

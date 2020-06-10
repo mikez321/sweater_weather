@@ -11,7 +11,7 @@ class CurrentWeather
               :visibility
 
   def initialize(current_info)
-    @date = Time.at(current_info[:current][:dt]).in_time_zone.strftime('%m/%d/%Y')
+    @date = Time.at(current_info[:current][:dt]).getlocal.strftime('%m/%d/%Y')
     @time = current_info[:current][:dt]
     @conditions = current_info[:current][:weather].first[:description]
     @icon = current_info[:current][:weather].first[:icon]
