@@ -54,4 +54,16 @@ class ErrorGenerator
       ]
     }
   end
+
+  def self.invalid_params
+    {
+      "errors": [
+        {
+          "status": 400,
+          "source": 'insufficent request',
+          "detail": 'missing or incorrect parameters'
+        }
+      ]
+    }
+  end
 end
