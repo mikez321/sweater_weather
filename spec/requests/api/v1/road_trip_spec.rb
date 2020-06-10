@@ -39,6 +39,7 @@ describe 'road trip endpoint' do
     expect(json[:data][:attributes]).to have_key(:origin)
     expect(json[:data][:attributes]).to have_key(:destination)
     expect(json[:data][:attributes]).to have_key(:travel_time)
+    expect(json[:data][:attributes]).to have_key(:arrival_time)
     expect(json[:data][:attributes]).to have_key(:arrival_weather)
     expect(json[:data][:attributes][:arrival_weather]).to have_key(:temp)
     expect(json[:data][:attributes][:arrival_weather]).to have_key(:description)
