@@ -39,6 +39,7 @@ describe 'road trip endpoint' do
     expect(json[:data][:attributes]).to have_key(:origin)
     expect(json[:data][:attributes]).to have_key(:destination)
     expect(json[:data][:attributes]).to have_key(:travel_time)
+    expect(json[:data][:attributes]).to have_key(:arrival_time)
     expect(json[:data][:attributes]).to have_key(:arrival_weather)
     expect(json[:data][:attributes][:arrival_weather]).to have_key(:temp)
     expect(json[:data][:attributes][:arrival_weather]).to have_key(:description)
@@ -132,5 +133,57 @@ describe 'road trip endpoint' do
 
     expect(json[:errors].first[:source]).to eq('unauthorized')
     expect(json[:errors].first[:detail]).to eq('user authentication failed')
+  end
+
+  it 'will not return anything without an origin' do
+    user = User.find_by(email: 'whatever@example.com')
+
+    user_params = {
+      origin: '',
+      destination: 'Pueblo, CO',
+      api_key: user.api_key
+    }
+
+    post '/api/v1/road_trip',
+    params: user_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+    expect(json[:errors].first[:detail]).to eq('missing or incorrect parameters')
+  end
+
+  it 'will not return anything without a destination' do
+    user = User.find_by(email: 'whatever@example.com')
+
+    user_params = {
+      origin: 'Denver, CO',
+      destination: '',
+      api_key: user.api_key
+    }
+
+    post '/api/v1/road_trip',
+    params: user_params.to_json,
+    headers: { 'CONTENT_TYPE' => 'application/json',
+               'Accept': 'application/json' }
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json).to have_key(:errors)
+    expect(json[:errors].first).to have_key(:status)
+    expect(json[:errors].first).to have_key(:source)
+    expect(json[:errors].first).to have_key(:detail)
+    expect(json[:errors].first[:detail]).to eq('missing or incorrect parameters')
   end
 end

@@ -4,7 +4,7 @@ class TimeCalculator
   end
 
   def initialize(travel_time)
-    @arrive = Time.now + travel_time
+    @arrive = Time.now.getlocal + travel_time
   end
 
   def next_hour

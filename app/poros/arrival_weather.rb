@@ -3,6 +3,6 @@ class ArrivalWeather
   def initialize(weather)
     @temp = weather[:temp]
     @description = weather[:weather].first[:description]
-    @arrival_hour = Time.at(weather[:dt]).strftime('%H:%M')
+    @arrival_hour = Time.at(weather[:dt]).getlocal.strftime('%H:%M')
   end
 end
